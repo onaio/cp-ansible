@@ -156,3 +156,7 @@ sasl_plain_users:
   schema_registry:
     principal: schema_registry
     password: schema_registry-secret
+
+zookeeper_host_group: zookeeper
+kafka_broker_host_group: kafka_broker
+schema_registry_host_group: schema_registry
