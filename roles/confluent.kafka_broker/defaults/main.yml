@@ -20,6 +20,7 @@ kafka_broker_service_environment_overrides:
   KAFKA_HEAP_OPTS: "-Xmx1g"
   KAFKA_OPTS: "{{ kafka_broker_final_java_args | java_arg_build_out }}"
 
+kafka_broker_tune_sysctl: true
 kafka_broker_sysctl:
   vm.swappiness: 1
   vm.dirty_background_ratio: 5
@@ -29,7 +30,7 @@ kafka_broker_sysctl_file: /etc/sysctl.conf
 
 kafka_broker_metrics_reporter_enabled: true
 
-kafka_broker_default_interal_replication_factor: "{{ [ groups['kafka_broker'] | length, 3 ] | min }}"
+kafka_broker_default_interal_replication_factor: "{{ [ groups[kafka_broker_ansible_group] | length, 3 ] | min }}"
 
 kafka_broker:
   appender_log_path: /var/log/kafka/

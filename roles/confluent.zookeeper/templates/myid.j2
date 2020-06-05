@@ -1,1 +1,1 @@
-{{ zookeeper_id | default(groups.zookeeper.index(inventory_hostname) + 1)}}
+{{ zookeeper_id | default(groups[zookeeper_ansible_group].index(inventory_hostname) + 1)}}

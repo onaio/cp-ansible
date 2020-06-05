@@ -1,0 +1,5 @@
+---
+- set_fact: { "{{ fact.key }}" : "{{ lookup('vars', fact.value) }}" }
+  with_items: "{{ facts | default([]) }}"
+  loop_control:
+    loop_var: fact

@@ -160,6 +160,7 @@
     sysctl_file: "{{ kafka_broker_sysctl_file }}"
   with_dict: "{{ kafka_broker_sysctl }}"
   notify: load sysctl
+  when: kafka_broker_tune_sysctl
 
 - name: Certs were Updated - Trigger Restart
   command: /bin/true

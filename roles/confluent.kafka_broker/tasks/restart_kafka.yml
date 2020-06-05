@@ -10,7 +10,7 @@
 - name: Restart Kafka Serially
   include: restart.yml
   delegate_to: "{{ item }}"
-  loop: "{{ groups['kafka_broker'] }}"
+  loop: "{{ groups[kafka_broker_ansible_group] }}"
   when:
     - "hostvars[item].inventory_hostname == inventory_hostname"
     - substate.stdout == 'SubState=running'

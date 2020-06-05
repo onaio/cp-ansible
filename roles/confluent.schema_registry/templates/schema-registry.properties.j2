@@ -20,7 +20,7 @@ ssl.client.auth=false
 {% endif %}
 
 # Kafka Broker Configuration
-kafkastore.bootstrap.servers={% for host in groups['kafka_broker'] %}{% if loop.index > 1%},{% endif %}{{ host }}:{{kafka_broker_listeners[schema_registry_kafka_listener_name]['port']}}{% endfor %}
+kafkastore.bootstrap.servers={{ schema_registry_kafka_broker_connect }}
 
 {% set config_prefix = 'kafkastore.' %}
 {% set listener = kafka_broker_listeners[schema_registry_kafka_listener_name] %}
@@ -37,7 +37,7 @@ kafkastore.bootstrap.servers={% for host in groups['kafka_broker'] %}{% if loop.
 {% set kerberos_principal = schema_registry_kerberos_principal %}
 {% set oauth_username = schema_registry_ldap_user %}
 {% set oauth_password = schema_registry_ldap_password %}
-{% include 'roles/confluent.kafka_broker/templates/kafka_client.j2' %}
+{% include 'kafka_client.j2' %}
 
 {% if rbac_enabled|bool %}
 # Zookeeper Configuration
