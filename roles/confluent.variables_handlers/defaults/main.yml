@@ -168,6 +168,7 @@ schema_registry_jolokia_port: 7772
 schema_registry_jolokia_ssl_enabled: "{{ schema_registry_ssl_enabled }}"
 
 schema_registry_kafka_broker_connect: "{% for host in groups[kafka_broker_ansible_group] %}{% if loop.index > 1%},{% endif %}{{ host }}:{{kafka_broker_listeners[schema_registry_kafka_listener_name]['port']}}{% endfor %}"
+schema_registry_client_connect: "{% for host in groups[schema_registry_ansible_group] %}{% if loop.index > 1%},{% endif %}{{ schema_registry_http_protocol }}://{{ host }}:{{ schema_registry_listener_port }}{% endfor %}"
 
 # Kafka Rest Variables
 kafka_rest_user: "{{kafka_rest_default_user}}"
@@ -215,6 +216,10 @@ kafka_connect_jolokia_enabled: "{{jolokia_enabled}}"
 kafka_connect_jolokia_port: 7773
 kafka_connect_jolokia_ssl_enabled: "{{ kafka_connect_ssl_enabled }}"
 
+
+kafka_connect_kafka_broker_connect: "{% for host in groups[kafka_broker_ansible_group] %}{% if loop.index > 1%},{% endif %}{{ host }}:{{kafka_broker_listeners[schema_registry_kafka_listener_name]['port']}}{% endfor %}"
+kafka_connect_client_connect: "{% for host in groups[kafka_connect_ansible_group] %}{% if loop.index > 1%},{% endif %}{{ kafka_connect_http_protocol }}://{{ host }}:{{ kafka_connect_listener_port }}{% endfor %}"
+
 # KSQL Variables
 ksql_user: "{{ksql_default_user}}"
 ksql_group: "{{ksql_default_group}}"
@@ -238,6 +243,8 @@ ksql:
 ksql_jolokia_enabled: "{{jolokia_enabled}}"
 ksql_jolokia_port: 7774
 ksql_jolokia_ssl_enabled: "{{ ksql_ssl_enabled }}"
+
+ksql_kafka_broker_connect: "{% for host in groups[kafka_broker_ansible_group] %}{% if loop.index > 1%},{% endif %}{{ host }}:{{kafka_broker_listeners[ksql_kafka_listener_name]['port']}}{% endfor %}"
 
 # Control Center Variables
 control_center_user: "{{control_center_default_user}}"
@@ -335,3 +342,5 @@ control_center_additional_system_admins: "{{rbac_component_additional_system_adm
 zookeeper_ansible_group: 'zookeeper'
 kafka_broker_ansible_group: 'kafka_broker'
 schema_registry_ansible_group: 'schema_registry'
+kafka_connect_ansible_group: 'kafka_connect'
+ksql_ansible_group: 'ksql'

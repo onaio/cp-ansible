@@ -20,7 +20,7 @@ ksql_service_environment_overrides:
   KSQL_HEAP_OPTS: "-Xmx3g"
   KSQL_OPTS: "{{ ksql_final_java_args | java_arg_build_out }}"
 
-ksql_default_internal_replication_factor: "{{ [ groups['kafka_broker'] | length, 3 ] | min }}"
+ksql_default_internal_replication_factor: "{{ [ groups[kafka_broker_ansible_group] | length, 3 ] | min }}"
 
 ksql_service_id: default_
 
